@@ -9,6 +9,7 @@
 
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -32,6 +33,7 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 30px;
+  margin: 20px 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
