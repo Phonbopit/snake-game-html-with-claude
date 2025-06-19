@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game Tutorial by Devahoy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Itim&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="top-bar">
+        <div class="score-section">
+          <div class="score player-score">
+            <span class="score-label">Player:</span>
+            <span id="playerScore">0</span>
+          </div>
+          <div class="score ai-score" id="aiScoreSection" style="display: none;">
+            <span class="score-label">AI:</span>
+            <span id="aiScore">0</span>
+          </div>
+        </div>
+        <button class="leaderboard-btn" onclick="openLeaderboard()">🏆 Leaderboard</button>
+      </div>
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+      <div class="controls">
+        <p>ใช้ปุ่มลูกศรเพื่อเล่น</p>
+        <button id="startBtn" onclick="startGame()">Start Game</button>
+        <button id="pauseBtn" onclick="togglePause()">Pause</button>
+        <button id="settingsBtn" onclick="openSettings()">Settings</button>
+      </div>
+      <div class="game-over" id="gameOver">
+        Game Over!<br />
+        <button onclick="startGame()">Play Again</button>
+      </div>
+      
+      <!-- Settings Modal -->
+      <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+          <div class="settings-header">
+            <h2>การตั้งค่า</h2>
+            <button class="close-btn" onclick="closeSettings()">&times;</button>
+          </div>
+          
+          <div class="settings-body">
+          <div class="settings-section">
+            <h3>ธีมสี</h3>
+            <div class="theme-options">
+              <div class="theme-option" data-theme="default">
+                <div class="theme-preview theme-preview-default"></div>
+                <span>ธีมเริ่มต้น</span>
+              </div>
+              <div class="theme-option" data-theme="dark">
+                <div class="theme-preview theme-preview-dark"></div>
+                <span>ธีมมืด</span>
+              </div>
+              <div class="theme-option" data-theme="ocean">
+                <div class="theme-preview theme-preview-ocean"></div>
+                <span>ธีมท้องทะเล</span>
+              </div>
+              <div class="theme-option" data-theme="sunset">
+                <div class="theme-preview theme-preview-sunset"></div>
+                <span>ธีมพระอาทิตย์ตก</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>ระดับความยาก</h3>
+            <div class="difficulty-options">
+              <label class="radio-option">
+                <input type="radio" name="difficulty" value="easy" checked>
+                <span class="radio-custom"></span>
+                ง่าย (ช้า)
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="difficulty" value="medium">
+                <span class="radio-custom"></span>
+                ปานกลาง
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="difficulty" value="hard">
+                <span class="radio-custom"></span>
+                ยาก (เร็ว)
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>ขนาดเกม</h3>
+            <div class="game-size-options">
+              <label class="radio-option">
+                <input type="radio" name="gameSize" value="small">
+                <span class="radio-custom"></span>
+                เล็ก (300x300)
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="gameSize" value="medium" checked>
+                <span class="radio-custom"></span>
+                ปานกลาง (400x400)
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="gameSize" value="large">
+                <span class="radio-custom"></span>
+                ใหญ่ (500x500)
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>เสียง</h3>
+            <div class="sound-options">
+              <label class="toggle-switch">
+                <input type="checkbox" id="soundToggle" checked>
+                <span class="toggle-slider"></span>
+                เปิดเสียง
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>โหมด AI</h3>
+            <div class="ai-toggle-section">
+              <label class="toggle-switch">
+                <input type="checkbox" id="aiToggle">
+                <span class="toggle-slider"></span>
+                เล่นกับ AI
+              </label>
+            </div>
+            <div class="ai-difficulty-section" id="aiDifficultySection">
+              <h4>ระดับ AI</h4>
+              <div class="ai-difficulty-options">
+                <label class="radio-option">
+                  <input type="radio" name="aiDifficulty" value="easy" checked>
+                  <span class="radio-custom"></span>
+                  ง่าย
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="aiDifficulty" value="hard">
+                  <span class="radio-custom"></span>
+                  ยาก
+                </label>
+              </div>
+            </div>
+          </div>
+          </div>
+          
+          <div class="settings-footer">
+            <button onclick="applySettings()">บันทึกการตั้งค่า</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Leaderboard Modal -->
+      <div class="leaderboard-modal" id="leaderboardModal">
+        <div class="leaderboard-content">
+          <div class="leaderboard-header">
+            <h2>🏆 Leaderboard</h2>
+            <button class="close-btn" onclick="closeLeaderboard()">&times;</button>
+          </div>
+          <div class="leaderboard-body">
+            <div id="leaderboardScores" class="scoreboard">
+              <!-- Scores will be populated here -->
+            </div>
+            <div class="leaderboard-actions">
+              <button class="clear-scores-btn" onclick="clearScoreboard()">ล้างคะแนน</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Score Input Modal -->
+      <div class="score-input-modal" id="scoreInputModal">
+        <div class="score-input-content">
+          <div class="score-input-header">
+            <h2>คะแนนสูง!</h2>
+          </div>
+          <div class="score-input-body">
+            <p>คะแนนของคุณคือ <span id="finalScore"></span> คะแนน</p>
+            <p>กรุณาใส่ชื่อของคุณ:</p>
+            <input type="text" id="playerName" placeholder="ใส่ชื่อ..." maxlength="20">
+          </div>
+          <div class="score-input-footer">
+            <button class="save-score-btn" onclick="saveScore()">บันทึกคะแนน</button>
+            <button class="auto-save-btn" onclick="autoSaveScore()">บันทึกแบบไม่ระบุชื่อ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
