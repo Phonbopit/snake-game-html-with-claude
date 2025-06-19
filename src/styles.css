@@ -214,7 +214,7 @@ button:disabled::before {
 }
 
 .settings-content {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(30, 30, 60, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
   backdrop-filter: blur(20px);
   margin: 1% auto;
   padding: 0;
@@ -222,7 +222,7 @@ button:disabled::before {
   border-radius: 20px;
   width: 95%;
   max-width: 450px;
-  max-height: 95vh;
+  max-height: 85vh;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   color: white;
@@ -246,7 +246,7 @@ button:disabled::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 25px;
+  padding: 15px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -298,7 +298,7 @@ button:disabled::before {
 
 .settings-section h3 {
   margin: 0 0 12px 0;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
 }
 
@@ -333,8 +333,8 @@ button:disabled::before {
 }
 
 .theme-preview {
-  width: 40px;
-  height: 24px;
+  width: 32px;
+  height: 20px;
   border-radius: 4px;
   margin-bottom: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -357,7 +357,7 @@ button:disabled::before {
 }
 
 .theme-option span {
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   line-height: 1.2;
 }
@@ -379,8 +379,16 @@ button:disabled::before {
 }
 
 /* AI Options */
+.ai-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .ai-toggle-section {
-  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .ai-difficulty-section {
@@ -390,7 +398,6 @@ button:disabled::before {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 8px;
 }
 
 .ai-difficulty-section.active {
@@ -417,12 +424,12 @@ button:disabled::before {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: 6px 8px;
   border-radius: 8px;
   transition: background 0.3s ease;
   flex: 1;
   min-width: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .radio-option:hover {
