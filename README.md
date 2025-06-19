@@ -4,7 +4,7 @@
 
 ทดลองเล่นเกมได้ที่: [Snake Game Demo](https://snake-game-html-with-claude.vercel.app/)
 
-[Screenshot](./demo.png)
+![Screenshot](./demo.png)
 
 > **📝 Note**: README.md นี้ถูกสร้างโดย [Claude Code](https://claude.ai/code) - AI coding assistant ที่ช่วยในการสร้างเอกสารและการพัฒนาโค้ด
 
